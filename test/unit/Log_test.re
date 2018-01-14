@@ -37,6 +37,9 @@ let _ =
           /* Log.logJson(arr); */
           Log.logVar(arr);
 
+          Log.print("print") |> ignore;
+          Log.print(obj) |> Log.printJson |> ignore;
+
 
           Log.fatal(
             Log.buildFatalMessage(

@@ -13,6 +13,16 @@ open Console;
      _isInNodejs() ? handleInNodeJs() : handleInOther(); */
 let getJsonStr = (json) => Js.Json.stringify(json |> Obj.magic);
 
+let print = (value) => {
+  log1(value);
+  value
+};
+
+let printJson = (value) => {
+  log1(getJsonStr(value));
+  value
+};
+
 let logVar = log1;
 
 let logJson = (var) => Js.Json.stringify(var |> Obj.magic) |> log1;
