@@ -27,11 +27,6 @@ let groupCollapsed = groupCollapsed;
 
 let groupEnd = groupEnd;
 
-let _throw = [%bs.raw {|
-    function(msg){
-            throw new Error(msg)
-    }|}];
-
 let buildDebugMessage = (~description, ~params, ()) => {j|
   Debug:
 
@@ -78,12 +73,6 @@ let debugJson = (buildMessageFunc, isTest: bool) =>
     } :
     ();
 
-let assert_ = (result: bool, msg) =>
-  switch result {
-  | false => _throw(msg)
-  | true => ()
-  };
-
 let buildFatalMessage = (~title, ~description, ~reason, ~solution, ~params) => {j|
   Fatal:
 
@@ -104,7 +93,7 @@ let buildFatalMessage = (~title, ~description, ~reason, ~solution, ~params) => {
 
    |j};
 
-let fatal = (msg) => _throw(msg);
+let fatal = (msg) => Exception.throw(msg);
 
 let buildErrorMessage = (~title, ~description, ~reason, ~solution, ~params) => {j|
   Error:
