@@ -41,7 +41,7 @@ let ensureCheck = (f: 'a => unit, isTest: bool, returnVal: 'a) : 'a =>
   | _ => returnVal
   };
 
-let assertFail = () => _assert(true, "fail");
+let assertFail = () => raise(Check_fail("fail"));
 
 let assertPass = () => ();
 
