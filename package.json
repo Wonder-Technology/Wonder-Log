@@ -1,0 +1,26 @@
+{
+  "name": "wonder-log",
+  "version": "0.1.0",
+  "authors": "Wonder",
+  "description": "",
+  "homepage": "https://github.com/Wonder-Technology/Wonder-Log.js",
+  "license": "MIT",
+  "main": "",
+  "scripts": {
+    "watch": "bsb -clean-world -make-world -w",
+    "test:watch": "jest --watch --config jest.json"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "bs-platform": "2.1.0",
+    "wonder-bs-jest": "latest",
+    "wonder-bs-sinon": "^0.1.6"
+  },
+  "dependencies": {
+  },
+  "resolutions": {
+    "wonder-bs-jest": "0.2.17"
+  }
+}
