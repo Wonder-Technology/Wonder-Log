@@ -50,6 +50,8 @@ let buildDebugMessage = (~description, ~params, ()) => {j|
 
   |j};
 
+let debugWithFunc = (func, isTest: bool) => isTest ? func() : ();
+
 let debug = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
