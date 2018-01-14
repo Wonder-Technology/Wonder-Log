@@ -36,6 +36,8 @@ let _ =
           /* Log.log({j|log v1:$arr|j}); */
           /* Log.logJson(arr); */
           Log.logVar(arr);
+
+
           Log.fatal(
             Log.buildFatalMessage(
               ~title="aaa",

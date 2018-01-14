@@ -11,6 +11,8 @@ open Console;
 
    let _handleDifferentEnv = (handleInNodeJs, handleInOther) =>
      _isInNodejs() ? handleInNodeJs() : handleInOther(); */
+let getJsonStr = (json) => Js.Json.stringify(json |> Obj.magic);
+
 let logVar = log1;
 
 let logJson = (var) => Js.Json.stringify(var |> Obj.magic) |> log1;
@@ -122,3 +124,5 @@ let error = (msg) => {
      ErrorEnd
            |j}) */
 };
+
+let buildAssertMessage = (~expect, ~actual) => {j|expect $expect, but actual $actual|j};
