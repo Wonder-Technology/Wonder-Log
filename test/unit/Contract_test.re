@@ -25,7 +25,6 @@ let _ =
                   () =>
                     Contract.Operators.(
                       Contract.test
-                        /* Log.buildAssertMessage(~expect="be true", ~actual="be false"), */
                         (
                           Log.buildAssertMessage(
                             ~expect=Log.getJsonStr([|1, 2|]),

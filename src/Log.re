@@ -55,9 +55,6 @@ let debug = (buildMessageFunc, isTest: bool) =>
     {
       log1(buildMessageFunc());
       trace()
-      /* log1({j|
-         DebugEnd
-               |j}) */
     } :
     ();
 
@@ -79,9 +76,6 @@ let debugJson = (buildMessageFunc, isTest: bool) =>
     {
       log1(buildMessageFunc());
       trace()
-      /* log1({j|
-         DebugJsonEnd
-               |j}) */
     } :
     ();
 
@@ -130,9 +124,6 @@ let buildErrorMessage = (~title, ~description, ~reason, ~solution, ~params) => {
 let error = (msg) => {
   error1(msg);
   trace()
-  /* log1({j|
-     ErrorEnd
-           |j}) */
 };
 
 let buildAssertMessage = (~expect, ~actual) => {j|expect $expect, but actual $actual|j};

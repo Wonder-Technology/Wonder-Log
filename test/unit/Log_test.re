@@ -20,7 +20,7 @@ let _ =
         () => {
           /* Log.debug(Log.buildDebugMessage(~title="aaa", ~reason="re", ~solution="so", ~description="de", ~params={j|v1:1, v2:2|j}), true); */
           Log.debug(Log.buildDebugMessage(~description="de", ~params={j|v1:1, v2:2|j}), true);
-          let arr = [|1,2|];
+          let arr = [|1, 2|];
           let obj = {a: 1, b: "bbb"};
           Log.debugJson(Log.buildDebugJsonMessage(~description="de", ~var=obj), true);
           Log.error(
@@ -32,15 +32,11 @@ let _ =
               ~params={j|v1:1, v2:2|j}
             )
           );
-          
           /* Log.log({j|log v1:$arr|j}); */
           /* Log.logJson(arr); */
           Log.logVar(arr);
-
           Log.print("print") |> ignore;
           Log.print(obj) |> Log.printJson |> ignore;
-
-
           Log.fatal(
             Log.buildFatalMessage(
               ~title="aaa",
