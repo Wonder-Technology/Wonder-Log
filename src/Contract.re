@@ -69,13 +69,13 @@ function(source) {
 ];
 
 let assertNullableExist = (source: 'a) =>
-  _assert(_isNullableExist(source) |> Js.to_bool, "expect to be exist, but actual not");
+  _assert(_isNullableExist(source) |> Js.to_bool, "expect exist, but actual not");
 
 let assertExist = (source: option('a)) =>
-  _assert(Js.Option.isSome(source), "expect to be exist, but actual not");
+  _assert(Js.Option.isSome(source), "expect exist, but actual not");
 
 let assertNotExist = (source: option('a)) =>
-  _assert(Js.Option.isNone(source), "expect to be not exist, but actual exist");
+  _assert(Js.Option.isNone(source), "expect not exist, but actual exist");
 
 type assertEqual(_) =
   | Int: assertEqual(int)
@@ -94,11 +94,11 @@ type assertNotEqual(_) =
   | Float: assertNotEqual(float)
   | String: assertNotEqual(string);
 
-let _getNotEqualMessage = (source, target) => {j|"expect to be $source, but actual is $target"|j};
+let _getNotEqualMessage = (source, target) => {j|"expect not to be $source, but actual is $target"|j};
 
 let assertNotEqual = (type g, kind: assertNotEqual(g), source: g, target: g) =>
   switch kind {
-  | _ => _assert(source != target, _getEqualMessage(source, target))
+  | _ => _assert(source != target, _getNotEqualMessage(source, target))
   };
 
 type assertNumber(_) =

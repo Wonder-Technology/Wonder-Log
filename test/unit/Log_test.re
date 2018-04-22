@@ -23,6 +23,7 @@ let _ =
           let arr = [|1, 2|];
           let obj = {a: 1, b: "bbb"};
           Log.debugJson(Log.buildDebugJsonMessage(~description="de", ~var=obj), true);
+         
           Log.error(
             Log.buildErrorMessage(
               ~title="aaa",
