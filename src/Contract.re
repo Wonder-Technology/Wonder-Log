@@ -9,20 +9,20 @@ let _assert = (result: bool, msg) =>
 let describe = (message: string, func, ~preCondition=() => true, ()) =>
   preCondition() ?
     try (func()) {
-    | Check_fail(failMessage) => throw({j|$message->$failMessage|j})
+    | Check_fail(failMessage) => throw({j|$message|j})
     } :
     ();
 
 let test = (message: string, func: unit => unit) =>
   try (func()) {
-  | Check_fail(failMessage) => throw({j|$message->$failMessage|j})
+  | Check_fail(failMessage) => throw({j|$message|j})
   };
 
 let testWithMessageFunc = (messageFunc: unit => string, func: unit => unit) =>
   try (func()) {
   | Check_fail(failMessage) =>
     let message = messageFunc();
-    throw({j|$message->$failMessage|j})
+    throw({j|$message|j})
   };
 
 /* TODO use conditional compilation */
@@ -82,7 +82,7 @@ type assertEqual(_) =
   | Float: assertEqual(float)
   | String: assertEqual(string);
 
-let _getEqualMessage = (source, target) => {j|"expect to be $source, but actual is $target"|j};
+let _getEqualMessage = (source, target) => {j|"expect to be $target, but actual is $source"|j};
 
 let assertEqual = (type g, kind: assertEqual(g), source: g, target: g) =>
   switch kind {
@@ -94,7 +94,7 @@ type assertNotEqual(_) =
   | Float: assertNotEqual(float)
   | String: assertNotEqual(string);
 
-let _getNotEqualMessage = (source, target) => {j|"expect not to be $source, but actual is $target"|j};
+let _getNotEqualMessage = (source, target) => {j|"expect not to be $target, but actual is $source"|j};
 
 let assertNotEqual = (type g, kind: assertNotEqual(g), source: g, target: g) =>
   switch kind {
@@ -104,8 +104,6 @@ let assertNotEqual = (type g, kind: assertNotEqual(g), source: g, target: g) =>
 type assertNumber(_) =
   | Int: assertNumber(int)
   | Float: assertNumber(float);
-
-let _getEqualMessage = (source, target) => {j|expect to be $source, but actual is $target|j};
 
 let assertGt = (type g, kind: assertNumber(g), source: g, target: g) =>
   switch kind {

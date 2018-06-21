@@ -57,7 +57,7 @@ let _ =
                     "Js.Nullable.empty should fail",
                     () =>
                       expect(() => Js.Nullable.empty |> Contract.assertNullableExist)
-                      |> toThrowMessage("expect to be exist, but actual not")
+                      |> toThrowMessage("expect exist, but actual not")
                   );
                   test(
                     "not Js.Nullable.empty should pass",
