@@ -1,7 +1,7 @@
 open Exception;
 
 let _assert = (result: bool, msg) =>
-  switch result {
+  switch (result) {
   | false => raise(Check_fail(msg))
   | true => ()
   };
@@ -13,31 +13,50 @@ let describe = (message: string, func, ~preCondition=() => true, ()) =>
     } :
     ();
 
-let test = (message: string, func: unit => unit) =>
-  try (func()) {
-  | Check_fail(failMessage) => throw({j|$message|j})
-  };
+let test = [%raw
+  (message, func) => {|
+  try{
+  func()
+  } catch(e){
+    throw new Error(JSON.stringify(message));
+  }
+  |}
+];
+/* try (func()) {
+   | Check_fail(failMessage) => throw({j|$message|j})
+   }; */
 
-let testWithMessageFunc = (messageFunc: unit => string, func: unit => unit) =>
-  try (func()) {
-  | Check_fail(failMessage) =>
-    let message = messageFunc();
-    throw({j|$message|j})
-  };
+/* let testWithMessageFunc = (messageFunc: unit => string, func: unit => unit) =>
+    try (func()) {
+    | Check_fail(failMessage) =>
+      let message = messageFunc();
+      throw({j|$message|j});
+    };
+   */
+
+let testWithMessageFunc = [%raw
+  (messageFunc, func) => {|
+  try{
+  func()
+  } catch(e){
+    throw new Error(JSON.stringify(messageFunc()));
+  }
+  |}
+];
 
 /* TODO use conditional compilation */
 let requireCheck = (f: unit => unit, isTest: bool) : unit =>
-  switch isTest {
+  switch (isTest) {
   | true => f()
   | _ => ()
   };
 
 /* TODO use conditional compilation */
 let ensureCheck = (f: 'a => unit, isTest: bool, returnVal: 'a) : 'a =>
-  switch isTest {
+  switch (isTest) {
   | true =>
     f(returnVal);
-    returnVal
+    returnVal;
   | _ => returnVal
   };
 
@@ -58,7 +77,10 @@ let assertJsFalse = (source: Js.boolean) =>
   _assert(source == Js.false_, "expect to be false, but actual is true");
 
 let assertIsBool = (source: bool) =>
-  _assert(source == true || source == false, "expect to be bool, but actual not");
+  _assert(
+    source == true || source == false,
+    "expect to be bool, but actual not",
+  );
 
 let _isNullableExist = [%bs.raw
   {|
@@ -69,7 +91,10 @@ function(source) {
 ];
 
 let assertNullableExist = (source: 'a) =>
-  _assert(_isNullableExist(source) |> Js.to_bool, "expect exist, but actual not");
+  _assert(
+    _isNullableExist(source) |> Js.to_bool,
+    "expect exist, but actual not",
+  );
 
 let assertExist = (source: option('a)) =>
   _assert(Js.Option.isSome(source), "expect exist, but actual not");
@@ -85,7 +110,7 @@ type assertEqual(_) =
 let _getEqualMessage = (source, target) => {j|"expect to be $target, but actual is $source"|j};
 
 let assertEqual = (type g, kind: assertEqual(g), source: g, target: g) =>
-  switch kind {
+  switch (kind) {
   | _ => _assert(source == target, _getEqualMessage(source, target))
   };
 
@@ -97,7 +122,7 @@ type assertNotEqual(_) =
 let _getNotEqualMessage = (source, target) => {j|"expect not to be $target, but actual is $source"|j};
 
 let assertNotEqual = (type g, kind: assertNotEqual(g), source: g, target: g) =>
-  switch kind {
+  switch (kind) {
   | _ => _assert(source != target, _getNotEqualMessage(source, target))
   };
 
@@ -106,23 +131,33 @@ type assertNumber(_) =
   | Float: assertNumber(float);
 
 let assertGt = (type g, kind: assertNumber(g), source: g, target: g) =>
-  switch kind {
-  | _ => _assert(source > target, {j|expect $source > $target, but actual isn't|j})
+  switch (kind) {
+  | _ =>
+    _assert(source > target, {j|expect $source > $target, but actual isn't|j})
   };
 
 let assertGte = (type g, kind: assertNumber(g), source: g, target: g) =>
-  switch kind {
-  | _ => _assert(source >= target, {j|expect $source >= $target, but actual isn't|j})
+  switch (kind) {
+  | _ =>
+    _assert(
+      source >= target,
+      {j|expect $source >= $target, but actual isn't|j},
+    )
   };
 
 let assertLt = (type g, kind: assertNumber(g), source: g, target: g) =>
-  switch kind {
-  | _ => _assert(source < target, {j|expect $source < $target, but actual isn't|j})
+  switch (kind) {
+  | _ =>
+    _assert(source < target, {j|expect $source < $target, but actual isn't|j})
   };
 
 let assertLte = (type g, kind: assertNumber(g), source: g, target: g) =>
-  switch kind {
-  | _ => _assert(source <= target, {j|expect $source <= $target, but actual isn't|j})
+  switch (kind) {
+  | _ =>
+    _assert(
+      source <= target,
+      {j|expect $source <= $target, but actual isn't|j},
+    )
   };
 
 module Operators = {
