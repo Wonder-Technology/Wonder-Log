@@ -70,11 +70,11 @@ let assertTrue = (source: bool) =>
 let assertFalse = (source: bool) =>
   _assert(source == false, "expect to be false, but actual is true");
 
-let assertJsTrue = (source: Js.boolean) =>
-  _assert(source == Js.true_, "expect to be true, but actual is false");
+let assertJsTrue = (source: bool) =>
+  _assert(source == true, "expect to be true, but actual is false");
 
-let assertJsFalse = (source: Js.boolean) =>
-  _assert(source == Js.false_, "expect to be false, but actual is true");
+let assertJsFalse = (source: bool) =>
+  _assert(source == false, "expect to be false, but actual is true");
 
 let assertIsBool = (source: bool) =>
   _assert(
@@ -91,10 +91,7 @@ function(source) {
 ];
 
 let assertNullableExist = (source: 'a) =>
-  _assert(
-    _isNullableExist(source) |> Js.to_bool,
-    "expect exist, but actual not",
-  );
+  _assert(_isNullableExist(source), "expect exist, but actual not");
 
 let assertExist = (source: option('a)) =>
   _assert(Js.Option.isSome(source), "expect exist, but actual not");

@@ -34,7 +34,7 @@
 [@bs.val] [@bs.scope "console"] external error4 : ('a, 'b, 'c, 'd) => unit = "error";
 
 /* [@bs.val] [@bs.scope "console"] [@bs.splice] external errorMany : array('a) => unit = "error"; */
-[@bs.val] [@bs.scope "console"] external assert_ : (Js.boolean, 'b) => unit = "assert";
+[@bs.val] [@bs.scope "console"] external assert_ : (bool, 'b) => unit = "assert";
 
 /* [@bs.val] [@bs.scope "console"] external assert2 : ('a, 'b) => unit = "assert";
 

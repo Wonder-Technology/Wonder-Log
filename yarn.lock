@@ -688,9 +688,9 @@ browser-resolve@^1.11.2:
   dependencies:
     resolve "1.1.7"
 
-bs-platform@3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-3.1.4.tgz#fe8495443b35aff73dfb61cba1e6d7b88311910b"
+bs-platform@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-4.0.0.tgz#4190460550414eecff92f1e2bbaf4d9c557b60af"
 
 bser@^2.0.0:
   version "2.0.0"
@@ -2886,9 +2886,9 @@ wonder-bs-jest@0.2.17, wonder-bs-jest@latest:
   dependencies:
     wonder-jest latest
 
-wonder-bs-sinon@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/wonder-bs-sinon/-/wonder-bs-sinon-0.1.6.tgz#2535e4423a6755ce4ecc03249741afaca5df1e10"
+wonder-bs-sinon@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/wonder-bs-sinon/-/wonder-bs-sinon-0.1.7.tgz#4e28953602cc2ca2bbc75f1bf363a43354af0005"
   dependencies:
     sinon "^4.1.2"
     wonder-bs-jest latest
