@@ -11,27 +11,58 @@ open Console;
 
    let _handleDifferentEnv = (handleInNodeJs, handleInOther) =>
      _isInNodejs() ? handleInNodeJs() : handleInOther(); */
-let getJsonStr = (json) => Js.Json.stringify(json |> Obj.magic);
 
-let print = (value) => {
-  log1(value);
-  value
+let _log = msg => {
+  log1(msg);
+
+  Wonder_Console.log(msg);
 };
 
-let printJson = (value) => {
-  log1(getJsonStr(value));
-  value
+let _info = msg => {
+  info1(msg);
+
+  Wonder_Console.info(msg);
 };
 
-let logVar = log1;
+let _warn = msg => {
+  warn1(msg);
 
-let logJson = (var) => Js.Json.stringify(var |> Obj.magic) |> log1;
+  Wonder_Console.warn(msg);
+};
 
-let log = (msg) => log1({j|Log: $msg|j});
+let _error = msg => {
+  error1(msg);
 
-let info = (msg) => info1({j|Info: $msg|j});
+  Wonder_Console.error(msg);
+};
 
-let warn = (msg) => warn1({j|Warn: $msg|j});
+let _trace = msg => {
+  trace(msg);
+
+  Wonder_Console.trace(msg);
+};
+
+let getJsonStr = json => Js.Json.stringify(json |> Obj.magic);
+
+let print = value => {
+  _log(value);
+  value;
+};
+
+let printJson = value => {
+  _log(getJsonStr(value));
+  value;
+};
+
+let logVar = _log;
+
+let logJson = var => Js.Json.stringify(var |> Obj.magic) |> _log;
+
+let log = msg => _log({j|Log: $msg|j});
+
+let info = msg => _info({j|Info: $msg|j});
+
+let warn = msg => _warn({j|Warn: $msg|j});
 
 let group = group;
 
@@ -55,8 +86,8 @@ let debugWithFunc = (func, isTest: bool) => isTest ? func() : ();
 let debug = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
-      log1(buildMessageFunc());
-      trace()
+      _log(buildMessageFunc());
+      _trace();
     } :
     ();
 
@@ -70,14 +101,14 @@ let buildDebugJsonMessage = (~description, ~var, ()) => {
 
   variable value
   $varStr
-  |j}
+  |j};
 };
 
 let debugJson = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
-      log1(buildMessageFunc());
-      trace()
+      _log(buildMessageFunc());
+      _trace();
     } :
     ();
 
@@ -101,7 +132,7 @@ let buildFatalMessage = (~title, ~description, ~reason, ~solution, ~params) => {
 
    |j};
 
-let fatal = (msg) => Exception.throw(msg);
+let fatal = msg => Exception.throw(msg);
 
 let buildErrorMessage = (~title, ~description, ~reason, ~solution, ~params) => {j|
   Error:
@@ -123,9 +154,9 @@ let buildErrorMessage = (~title, ~description, ~reason, ~solution, ~params) => {
 
    |j};
 
-let error = (msg) => {
-  error1(msg);
-  trace()
+let error = msg => {
+  _error(msg);
+  _trace();
 };
 
 let buildAssertMessage = (~expect, ~actual) => {j|expect $expect, but actual $actual|j};
