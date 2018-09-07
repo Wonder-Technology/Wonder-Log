@@ -23,30 +23,30 @@ let makeObjInToWindow: unit => unit = [%raw
 
 let log = [%raw
   msg => {|
-    window.wonder_console.log(msg);
+    !!window.wonder_console && window.wonder_console.log(msg);
   |}
 ];
 
 let info = [%raw
   msg => {|
-    return window.wonder_console.info(msg);
+    !!window.wonder_console && window.wonder_console.info(msg);
   |}
 ];
 
 let error = [%raw
   msg => {|
-    return window.wonder_console.error(msg);
+    !!window.wonder_console && window.wonder_console.error(msg);
   |}
 ];
 
 let warn = [%raw
   msg => {|
-    return window.wonder_console.warn(msg);
+    !!window.wonder_console && window.wonder_console.warn(msg);
   |}
 ];
 
 let trace = [%raw
   msg => {|
-    return window.wonder_console.trace(msg);
+    !!window.wonder_console && window.wonder_console.trace(msg);
   |}
 ];
