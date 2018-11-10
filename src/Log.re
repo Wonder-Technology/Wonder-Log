@@ -36,10 +36,12 @@ let _error = msg => {
   Wonder_Console.error(msg);
 };
 
-let _trace = msg => {
-  trace(msg);
+let _trace = func => {
+  trace();
 
-  Wonder_Console.trace(msg);
+  Wonder_Console.trace(func) |> ignore;
+
+  ();
 };
 
 let getJsonStr = json => Js.Json.stringify(json |> Obj.magic);
@@ -83,11 +85,11 @@ let buildDebugMessage = (~description, ~params, ()) => {j|
 
 let debugWithFunc = (func, isTest: bool) => isTest ? func() : ();
 
-let debug = (buildMessageFunc, isTest: bool) =>
+let rec debug = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
       _log(buildMessageFunc());
-      _trace();
+      _trace(debug);
     } :
     ();
 
@@ -104,11 +106,11 @@ let buildDebugJsonMessage = (~description, ~var, ()) => {
   |j};
 };
 
-let debugJson = (buildMessageFunc, isTest: bool) =>
+let rec debugJson = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
       _log(buildMessageFunc());
-      _trace();
+      _trace(debugJson);
     } :
     ();
 
@@ -154,9 +156,9 @@ let buildErrorMessage = (~title, ~description, ~reason, ~solution, ~params) => {
 
    |j};
 
-let error = msg => {
+let rec error = msg => {
   _error(msg);
-  _trace();
+  _trace(error);
 };
 
 let buildAssertMessage = (~expect, ~actual) => {j|expect $expect, but actual $actual|j};

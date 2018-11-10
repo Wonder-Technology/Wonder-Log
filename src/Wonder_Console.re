@@ -46,7 +46,7 @@ let warn = [%raw
 ];
 
 let trace = [%raw
-  msg => {|
-    !!window.wonder_console && window.wonder_console.trace(msg);
+  func => {|
+    !!window.wonder_console && window.wonder_console.trace(func);
   |}
 ];
