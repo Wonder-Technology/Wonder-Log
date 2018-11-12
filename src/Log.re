@@ -66,11 +66,11 @@ let logVar = _log;
 
 let logJson = var => Js.Json.stringify(var |> Obj.magic) |> _log;
 
-let log = msg => _log({j|Log: $msg|j});
+let log = msg => _log({j|$msg|j});
 
-let info = msg => _info({j|Info: $msg|j});
+let info = msg => _info({j|$msg|j});
 
-let warn = msg => _warn({j|Warn: $msg|j});
+let warn = msg => _warn({j|$msg|j});
 
 let group = group;
 
