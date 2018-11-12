@@ -9,6 +9,9 @@ let makeObjInToWindow: unit => unit = [%raw
     window.wonder_console.info = function(msg){
     }
 
+    window.wonder_console.debug = function(msg){
+    }
+
     window.wonder_console.error = function(msg){
     }
 
@@ -30,6 +33,12 @@ let log = [%raw
 let info = [%raw
   msg => {|
     !!window.wonder_console && window.wonder_console.info(msg);
+  |}
+];
+
+let debug = [%raw
+  msg => {|
+    !!window.wonder_console && window.wonder_console.debug(msg);
   |}
 ];
 

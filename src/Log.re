@@ -30,6 +30,12 @@ let _warn = msg => {
   Wonder_Console.warn(msg);
 };
 
+let _debug = msg => {
+  log1(msg);
+
+  Wonder_Console.debug(msg);
+};
+
 let _error = msg => {
   error1(msg);
 
@@ -88,7 +94,7 @@ let debugWithFunc = (func, isTest: bool) => isTest ? func() : ();
 let rec debug = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
-      _log(buildMessageFunc());
+      _debug(buildMessageFunc());
       _trace(debug);
     } :
     ();
@@ -109,7 +115,7 @@ let buildDebugJsonMessage = (~description, ~var, ()) => {
 let rec debugJson = (buildMessageFunc, isTest: bool) =>
   isTest ?
     {
-      _log(buildMessageFunc());
+      _debug(buildMessageFunc());
       _trace(debugJson);
     } :
     ();
