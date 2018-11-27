@@ -26,36 +26,60 @@ let makeObjInToWindow: unit => unit = [%raw
 
 let log = [%raw
   msg => {|
-    !!window.wonder_console && window.wonder_console.log(msg);
+    if (typeof window === "undefined" || typeof window.wonder_console === "undefined") {
+      return;
+    }
+
+    window.wonder_console.log(msg);
   |}
 ];
 
 let info = [%raw
   msg => {|
-    !!window.wonder_console && window.wonder_console.info(msg);
+    if (typeof window === "undefined" || typeof window.wonder_console === "undefined") {
+      return;
+    }
+
+    window.wonder_console.info(msg);
   |}
 ];
 
 let debug = [%raw
   msg => {|
-    !!window.wonder_console && window.wonder_console.debug(msg);
+    if (typeof window === "undefined" || typeof window.wonder_console === "undefined") {
+      return;
+    }
+
+    window.wonder_console.debug(msg);
   |}
 ];
 
 let error = [%raw
   msg => {|
-    !!window.wonder_console && window.wonder_console.error(msg);
+    if (typeof window === "undefined" || typeof window.wonder_console === "undefined") {
+      return;
+    }
+
+    window.wonder_console.error(msg);
   |}
 ];
 
 let warn = [%raw
   msg => {|
-    !!window.wonder_console && window.wonder_console.warn(msg);
+    if (typeof window === "undefined" || typeof window.wonder_console === "undefined") {
+      return;
+    }
+
+    window.wonder_console.warn(msg);
   |}
 ];
 
 let trace = [%raw
   func => {|
-    !!window.wonder_console && window.wonder_console.trace(func);
+    if (typeof window === "undefined" || typeof window.wonder_console === "undefined") {
+      return;
+    }
+
+    window.wonder_console.trace(func);
   |}
 ];
