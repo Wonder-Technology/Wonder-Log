@@ -1,5 +1,5 @@
 let makeObjInToWindow: unit => unit = [%raw
-  () => {|
+  param => {|
     window.wonder_console = {};
 
 
